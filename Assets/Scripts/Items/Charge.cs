@@ -2,6 +2,7 @@
 
 public class Charge : MonoBehaviour {
 
+    // Editor: Yzm
     StageObject _StageObject;
     private bool TouchCharge;
     private Player player;
@@ -12,11 +13,11 @@ public class Charge : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.name == "player") TouchCharge = true;
+        if (collision.name == "Player") TouchCharge = true;
     }
 
     void OnTriggerExit2D(Collider2D collision) {
-        if (collision.name == "player") TouchCharge = false;
+        if (collision.name == "Player") TouchCharge = false;
     }
 
     void Update() {
@@ -28,13 +29,8 @@ public class Charge : MonoBehaviour {
     private void ChargeStart() {
         player.RecvInput = false;
         player.gameObject.GetComponent<Animator>().SetBool("Charge", true);
-        //Add event "ChargeOver" in Animation
     }
 
-    public void ChargeOver() {
-        player.RecvInput = true;
-        player.gameObject.GetComponent<Animator>().SetBool("Charge", false);
-        player.ElecQuan = 3;
-    }
+    //ChargeOver() method has been moved into player.cs
 
 }

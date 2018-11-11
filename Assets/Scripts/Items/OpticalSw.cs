@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OpticalSw : MonoBehaviour {
 
+    // Editor: Yzm
     [SerializeField] private string color;
     [SerializeField] private Sprite stateOn;
     [SerializeField] private Sprite stateOff;
@@ -18,7 +19,7 @@ public class OpticalSw : MonoBehaviour {
     public void Off() {
         GetComponent<SpriteRenderer>().sprite = stateOff;
         Door door = _StageObject.GetDoorByColor(color).GetComponent<Door>();
-        door.OFF();
+        door.CLOSE();
     }
 
 }

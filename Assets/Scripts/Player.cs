@@ -6,20 +6,17 @@ public class Player : MonoBehaviour {
 
     public int PlayerHP, ElecQuan;
     public bool RecvInput;
-    //   [SerializeField] private StageObject _StageObject;
-    public float proportion;
-    public float cd; 
+    [SerializeField] private StageObject _StageObject;
     [SerializeField] private KeyCode Left;
     [SerializeField] private KeyCode Right;
     [SerializeField] private KeyCode Jump;
-    [SerializeField] private GameObject Bullet;
-    
     public KeyCode Press;
     [SerializeField] private KeyCode Shoot;
     [SerializeField] private float Speed;
     private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
-    public bool Jumpable;
+    public bool Jumpable, FaceLeft;
+    public float cd, proportion;
 
     void Start () {
         PlayerHP = 3;//血量
@@ -29,6 +26,8 @@ public class Player : MonoBehaviour {
         Time.timeScale = 1;
         _Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
+        FaceLeft = true;
+        gameObject.name = "Player";
 	}
 	//开关、充电、激光发射器各自分开写
 	void Update () {
@@ -38,6 +37,7 @@ public class Player : MonoBehaviour {
                 _RigidBody2D.velocity = new Vector2(Speed, 0);
                 _Animator.SetBool("Normal", false);
                 _Animator.SetBool("WalktoRight", true);
+                FaceLeft = false;
             }
             if (Input.GetKeyUp(Right)) {
                 _RigidBody2D.velocity = new Vector2(0, 0);
@@ -49,6 +49,7 @@ public class Player : MonoBehaviour {
                 _RigidBody2D.velocity = new Vector2(-Speed, 0);
                 _Animator.SetBool("Normal", false);
                 _Animator.SetBool("WalktoLeft", true);
+                FaceLeft = true;
             }
             if (Input.GetKeyUp(Left)) {
                 _RigidBody2D.velocity = new Vector2(0, 0);
@@ -60,30 +61,25 @@ public class Player : MonoBehaviour {
                 if (Physics2D.gravity.y <= 0) _RigidBody2D.velocity = new Vector2(0, 2);
                 else _RigidBody2D.velocity = new Vector2(0, -2);
             }
-            if(Input.GetKeyDown(Shoot))
-            {
-                Instantiate(Bullet, gameObject.transform.position,Quaternion.identity);
+            //Shoot
+            if (Input.GetKeyDown(Shoot)) {
+                GameObject tmp = Instantiate(_StageObject.BulletPrefab, gameObject.transform.position, Quaternion.identity);
+                tmp.GetComponent<Bullet>().sign = FaceLeft ? -1 : 1;
             }
         }
 	}
-
-    public void Charge() {
-        RecvInput = false;
-        GetComponent<Animator>().SetBool("Charge", true);
-        //Add event "ChargeOver" in Animation
-    }
-
-    private void ChargeOver() {
-        RecvInput = true;
-        _Animator.SetBool("Charge", false);
-        ElecQuan = 3;
-    }
 
     //受伤
     public void Injure() {
         PlayerHP--;
         //_StageObject.HPPanel.Injure();
         if (PlayerHP == 0) Die();
+    }
+
+    public void ChargeOver() {
+        RecvInput = true;
+        gameObject.GetComponent<Animator>().SetBool("Charge", false);
+        ElecQuan = 3;
     }
 
     public void Die() {

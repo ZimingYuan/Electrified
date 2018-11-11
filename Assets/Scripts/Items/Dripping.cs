@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dripping : MonoBehaviour {
 
+    // Editor: Syx
     private float cd;
     private float timeFlag;
     public Player Player;
@@ -14,7 +15,7 @@ public class Dripping : MonoBehaviour {
         timeFlag = 0;
         cd = Player.cd;
     }
-    // Update is called once per frame
+
     void Update () {
 		if(Time.time>timeFlag)
         {

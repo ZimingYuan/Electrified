@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Mirror : MonoBehaviour {
 
+    // Editor: Yzm
     public Vector2 Normal;
     private bool TouchMirror;
     private bool OnPress;
-    [SerializeField] private KeyCode Press;
     [SerializeField] private float RotateSpeed;
     [SerializeField] private StageObject _StageObject;
+    private Player player;
 
     void Start() {
         Normal.Normalize();
         TouchMirror = true;
         OnPress = false;
+        player = _StageObject.GetPlayer().GetComponent<Player>();
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -26,8 +28,8 @@ public class Mirror : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(Press)) OnPress = true;
-        if (Input.GetKeyUp(Press)) {
+        if (Input.GetKeyDown(player.Press)) OnPress = true;
+        if (Input.GetKeyUp(player.Press)) {
             OnPress = false;
             _StageObject.LaserLauncher.GetComponent<LaserLauncher>().LaserLaunch();
         }

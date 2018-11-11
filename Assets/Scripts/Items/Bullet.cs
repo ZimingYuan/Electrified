@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    // Use this for initialization
+    // Editor: Syx
     private Vector2 fly = new Vector2(1000, 0);
+    public int sign;
+
+    void Start() {
+        gameObject.name = "Bullet";
+    }
+
     private void FixedUpdate()
     {
-        gameObject.GetComponent<Rigidbody2D>().velocity = fly * Time.fixedDeltaTime;
+        gameObject.GetComponent<Rigidbody2D>().velocity = sign * fly * Time.fixedDeltaTime;
     }
 }

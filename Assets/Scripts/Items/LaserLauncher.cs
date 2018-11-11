@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LaserLauncher : MonoBehaviour {
 
+    // Editor: Yzm
     StageObject _StageObject;
     private bool TouchLaser;
     private Player player;
     [SerializeField] private Vector2 Direction;
     private RaycastHit2D[] Result = new RaycastHit2D[50];
     private List<Vector3> Points = new List<Vector3>();
-    [SerializeField] private GameObject LaserPrefab;
     private GameObject Laser;
 
     void Start() {
@@ -20,11 +20,11 @@ public class LaserLauncher : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.name == "player") TouchLaser = true;
+        if (collision.name == "Player") TouchLaser = true;
     }
 
     void OnTriggerExit2D(Collider2D collision) {
-        if (collision.name == "player") TouchLaser = false;
+        if (collision.name == "Player") TouchLaser = false;
     }
 
     void Update() {
@@ -56,7 +56,7 @@ public class LaserLauncher : MonoBehaviour {
             }
             else break;
         }
-        Laser = Instantiate(LaserPrefab);
+        Laser = Instantiate(_StageObject.LaserPrefab);
         Laser.GetComponent<LineRenderer>().SetPositions(Points.ToArray());
     }
 

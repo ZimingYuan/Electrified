@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mouse : MonoBehaviour {
 
-    // Use this for initialization
+    // Editor: Syx
     public float moveMax;//老鼠的移动范围
     public float moveMin;
     public int state=1;
@@ -13,8 +13,8 @@ public class Mouse : MonoBehaviour {
     private int flag = 1;//方向标记
     private float flagTime;//时间标记
     private GameObject Gam;
-    private Vector2 go = new Vector2(200, 0);
-	// Update is called once per frame
+    [SerializeField]private Vector2 go = new Vector2(200, 0);
+	
 	void Update () {
        
         if(state==1)

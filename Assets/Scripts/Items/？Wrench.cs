@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wrench : MonoBehaviour {
 
+    // Editor: Syx
     [SerializeField] private KeyCode press;
     public Player Player;
     public StageObject gameManagee;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Retracting : MonoBehaviour {
 
+    // Editor: Syx
     public Player player;
     private float proportion;
     public GameObject gam;
@@ -13,12 +14,12 @@ public class Retracting : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(gameObject.transform.tag=="bigger")//是放大的意思
+        if(gameObject.transform.tag=="bigger")//放大
         {
             collision.gameObject.transform.localScale *= proportion;
             collision.gameObject.transform.position = gam.transform.position;
         }
-        if (gameObject.transform.tag == "smaller")//是放大的意思
+        if (gameObject.transform.tag == "smaller")//缩小
         {
             collision.gameObject.transform.localScale *= proportion;
             collision.gameObject.transform.position = gam.transform.position;

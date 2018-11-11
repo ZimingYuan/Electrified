@@ -10,6 +10,8 @@ public class StageObject : MonoBehaviour {
     public GameObject PausePanel;
     public GameObject OpticalSw;
     public GameObject LaserLauncher;
+    public GameObject LaserPrefab;
+    public GameObject BulletPrefab;
     //public HPPanel HPPanel;
 
     public GameObject GetDoorByColor(string color) {

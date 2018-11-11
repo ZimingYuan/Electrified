@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class waterVelocity : MonoBehaviour {
 
-	// Use this for initialization
+    // Editor: Syx
 	void Start () {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 200));
+        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, -200));
 	}
 	
-	// Update is called once per frame
+    void OnTriggerEnter2D(Collider2D collider) {
+        if (collider.name == "Player") collider.gameObject.GetComponent<Player>().Injure();
+        Destroy(gameObject);
+    }
+
 	void Update () {
 		
 	}

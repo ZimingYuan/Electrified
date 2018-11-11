@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour {
 
+    // Editor: Syx
     public string Color;//门的颜色
     public void OPEN()
     {
