@@ -28,7 +28,7 @@ public class Charge : MonoBehaviour {
 
     private void ChargeStart() {
         player.RecvInput = false;
-        player.gameObject.GetComponent<Animator>().SetBool("Charge", true);
+        //player.gameObject.GetComponent<Animator>().SetBool("Charge", true);
     }
 
     //ChargeOver() method has been moved into player.cs

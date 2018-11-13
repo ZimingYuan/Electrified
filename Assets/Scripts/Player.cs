@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
     public KeyCode Press;
     [SerializeField] private KeyCode Shoot;
     [SerializeField] private float Speed;
-    private Animator _Animator;
+    //private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
     public bool Jumpable, FaceLeft;
     public float cd, proportion;
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
         RecvInput = true;
         Jumpable = true;
         Time.timeScale = 1;
-        _Animator = GetComponent<Animator>();
+        //_Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
         FaceLeft = true;
         gameObject.name = "Player";
@@ -35,26 +35,26 @@ public class Player : MonoBehaviour {
             //Right
             if (Input.GetKeyDown(Right)) {
                 _RigidBody2D.velocity = new Vector2(Speed, 0);
-                _Animator.SetBool("Normal", false);
-                _Animator.SetBool("WalktoRight", true);
+                //_Animator.SetBool("Normal", false);
+                //_Animator.SetBool("WalktoRight", true);
                 FaceLeft = false;
             }
             if (Input.GetKeyUp(Right)) {
                 _RigidBody2D.velocity = new Vector2(0, 0);
-                _Animator.SetBool("WalktoRight", false);
-                _Animator.SetBool("Normal", true);
+                //_Animator.SetBool("WalktoRight", false);
+                //_Animator.SetBool("Normal", true);
             }
             //Left
             if (Input.GetKeyDown(Left)) {
                 _RigidBody2D.velocity = new Vector2(-Speed, 0);
-                _Animator.SetBool("Normal", false);
-                _Animator.SetBool("WalktoLeft", true);
+                //_Animator.SetBool("Normal", false);
+                //_Animator.SetBool("WalktoLeft", true);
                 FaceLeft = true;
             }
             if (Input.GetKeyUp(Left)) {
                 _RigidBody2D.velocity = new Vector2(0, 0);
-                _Animator.SetBool("WalktoLeft", false);
-                _Animator.SetBool("Normal", true);
+                //_Animator.SetBool("WalktoLeft", false);
+                //_Animator.SetBool("Normal", true);
             }
             //Jump
             if (Input.GetKeyDown(Jump) && Jumpable) {
@@ -78,13 +78,13 @@ public class Player : MonoBehaviour {
 
     public void ChargeOver() {
         RecvInput = true;
-        gameObject.GetComponent<Animator>().SetBool("Charge", false);
+        //gameObject.GetComponent<Animator>().SetBool("Charge", false);
         ElecQuan = 3;
     }
 
     public void Die() {
         RecvInput = false;
-        _Animator.SetBool("Die", true);
+        //_Animator.SetBool("Die", true);
         //Add event "DieOver" in Animation
     }
 
