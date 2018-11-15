@@ -25,7 +25,7 @@ public class Transport : MonoBehaviour {
     void Update () {
 		if (Touch && player.RecvInput && Input.GetKeyDown(player.Press)) {
             player.gameObject.transform.position = AppearPosition;
-            player.Change();
+            //player.Change();
         }
 	}
 }
