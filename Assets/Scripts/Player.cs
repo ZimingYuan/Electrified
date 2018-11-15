@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public int PlayerHP, ElecQuan;
+    public int PlayerHP, ElecQuan, BatteryNum;
     public bool RecvInput;
     [SerializeField] private StageObject _StageObject;
     [SerializeField] private KeyCode Left;
@@ -13,16 +13,19 @@ public class Player : MonoBehaviour {
     public KeyCode Press;
     [SerializeField] private KeyCode Shoot;
     [SerializeField] private float Speed;
+    [SerializeField] private float JumpDuration;
+    [SerializeField] private Vector2 JumpSpeed;
     //private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
-    public bool Jumpable, FaceLeft;
+    public bool FaceLeft;
     public float cd, proportion;
+    private float timecd;
 
     void Start () {
         PlayerHP = 3;//血量
-        ElecQuan = 0;//电量
+        ElecQuan = BatteryNum = 0;//电量
+        timecd = 0;
         RecvInput = true;
-        Jumpable = true;
         Time.timeScale = 1;
         //_Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
@@ -57,9 +60,10 @@ public class Player : MonoBehaviour {
                 //_Animator.SetBool("Normal", true);
             }
             //Jump
-            if (Input.GetKeyDown(Jump) && Jumpable) {
-                if (Physics2D.gravity.y <= 0) _RigidBody2D.velocity = new Vector2(0, 2);
-                else _RigidBody2D.velocity = new Vector2(0, -2);
+            if (Input.GetKeyDown(Jump) && Time.time>timecd) {
+                if (Physics2D.gravity.y <= 0) _RigidBody2D.velocity = JumpSpeed;
+                else _RigidBody2D.velocity = -JumpSpeed;
+                timecd = Time.time + JumpDuration;
             }
             //Shoot
             if (Input.GetKeyDown(Shoot)) {
