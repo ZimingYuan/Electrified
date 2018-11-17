@@ -12,10 +12,12 @@ public class Switch : MonoBehaviour {
     {
         iDoor = gameManagee.GetDoorByColor(this.color);
         iDoor.GetComponent<Door>().OPEN();
+        gameObject.SetActive(false);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         iDoor = gameManagee.GetDoorByColor(this.color);
         iDoor.GetComponent<Door>().CLOSE();
+        gameObject.SetActive(true);
     }
 }

@@ -3,7 +3,6 @@
 public class WaterOrOil : MonoBehaviour {
 
     // Editor: Yzm
-    [SerializeField] private StageObject _StageObject;
     private bool IsWater;
 
     void Start() {
@@ -14,7 +13,7 @@ public class WaterOrOil : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.name == "Player" && IsWater) {
-            _StageObject.GetPlayer().GetComponent<Player>().Die();
+            collision.gameObject.GetComponent<Player>().Die();
         }
         if (collision.name == "OilBucket") {
             IsWater = false;

@@ -29,7 +29,7 @@
 		};
 
 		void surf (Input IN, inout SurfaceOutput o) {
-            o.Albedo = _Color.rgb * 2.4;
+            o.Albedo = _Color.rgb * 2.6;
             fixed sin0 = 0.01 * sin(2 * 3.1416 * IN.uv_MainTex.x + _Time.y * _Speed);
             fixed sin1 = 0.02 * sin(4 * 3.1416 * IN.uv_MainTex.x + _Time.y * _Speed);
             fixed sin2 = 0.04 * sin(8 * 3.1416 * IN.uv_MainTex.x + _Time.y * _Speed);
