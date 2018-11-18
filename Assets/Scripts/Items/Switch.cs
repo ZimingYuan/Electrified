@@ -6,18 +6,31 @@ public class Switch : MonoBehaviour {
 
     // Editor: Syx
     public string color;
-    private GameObject iDoor;
+    private Door iDoor;
     public StageObject gameManagee;
+    private int cnt;
+
+    void Start() {
+        iDoor = gameManagee.GetComponent<StageObject>().GetDoorByColor(color).GetComponent<Door>();
+        cnt = 0;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        iDoor = gameManagee.GetDoorByColor(this.color);
-        iDoor.GetComponent<Door>().OPEN();
-        gameObject.SetActive(false);
+        if (cnt == 0) {
+            iDoor.OPEN();
+            Color c = gameObject.GetComponent<SpriteRenderer>().color;
+            c.a = 0; gameObject.GetComponent<SpriteRenderer>().color = c;
+        }
+        cnt++;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        iDoor = gameManagee.GetDoorByColor(this.color);
-        iDoor.GetComponent<Door>().CLOSE();
-        gameObject.SetActive(true);
+        if (cnt == 1) {
+            iDoor.CLOSE();
+            Color c = gameObject.GetComponent<SpriteRenderer>().color;
+            c.a = 255; gameObject.GetComponent<SpriteRenderer>().color = c;
+        }
+        cnt--;
     }
 }

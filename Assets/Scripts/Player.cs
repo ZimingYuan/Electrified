@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private KeyCode Shoot;
     [SerializeField] private float Speed;
     [SerializeField] private float JumpDuration;
-    [SerializeField] private Vector2 JumpSpeed;
+    [SerializeField] private float JumpSpeed;
     //private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
     public bool FaceLeft;
@@ -36,33 +36,44 @@ public class Player : MonoBehaviour {
 	void Update () {
 		if (RecvInput) {
             //Right
-            if (Input.GetKeyDown(Right)) {
-                _RigidBody2D.velocity = new Vector2(Speed, 0);
+            if (Input.GetKey(Right)) {
+                Vector2 v = _RigidBody2D.velocity;
+                v.x = Speed;
+                _RigidBody2D.velocity = v;
                 //_Animator.SetBool("Normal", false);
                 //_Animator.SetBool("WalktoRight", true);
                 FaceLeft = false;
             }
             if (Input.GetKeyUp(Right)) {
-                _RigidBody2D.velocity = new Vector2(0, 0);
+                Vector2 v = _RigidBody2D.velocity;
+                v.x = 0;
+                _RigidBody2D.velocity = v;
                 //_Animator.SetBool("WalktoRight", false);
                 //_Animator.SetBool("Normal", true);
             }
             //Left
-            if (Input.GetKeyDown(Left)) {
-                _RigidBody2D.velocity = new Vector2(-Speed, 0);
+            if (Input.GetKey(Left)) {
+                Vector2 v = _RigidBody2D.velocity;
+                v.x = -Speed;
+                _RigidBody2D.velocity = v;
+                Debug.Log(_RigidBody2D.velocity.x);
                 //_Animator.SetBool("Normal", false);
                 //_Animator.SetBool("WalktoLeft", true);
                 FaceLeft = true;
             }
             if (Input.GetKeyUp(Left)) {
-                _RigidBody2D.velocity = new Vector2(0, 0);
+                Vector2 v = _RigidBody2D.velocity;
+                v.x = 0;
+                _RigidBody2D.velocity = v;
                 //_Animator.SetBool("WalktoLeft", false);
                 //_Animator.SetBool("Normal", true);
             }
             //Jump
             if (Input.GetKeyDown(Jump) && Time.time>timecd) {
-                if (Physics2D.gravity.y <= 0) _RigidBody2D.velocity = JumpSpeed;
-                else _RigidBody2D.velocity = -JumpSpeed;
+                Vector2 v = _RigidBody2D.velocity;
+                if (Physics2D.gravity.y <= 0) v.y = JumpSpeed;
+                else v.y = -JumpSpeed;
+                _RigidBody2D.velocity = v;
                 timecd = Time.time + JumpDuration;
             }
             //Shoot
