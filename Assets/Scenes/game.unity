@@ -716,7 +716,6 @@ MonoBehaviour:
   JumpSpeed: 6
   FaceLeft: 0
   cd: 1
-  proportion: 0
   ToWinNeedButteryNum: 3
 --- !u!50 &252013264
 Rigidbody2D:

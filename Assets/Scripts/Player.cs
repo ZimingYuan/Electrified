@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public int PlayerHP, ElecQuan, BatteryNum;
-    public bool RecvInput;
+    [HideInInspector]public int PlayerHP, ElecQuan, BatteryNum;
+    [HideInInspector] public bool RecvInput;
     [SerializeField] private StageObject _StageObject;
-    [SerializeField] private KeyCode Left;
-    [SerializeField] private KeyCode Right;
-    [SerializeField] private KeyCode Jump;
-    public KeyCode Press;
-    [SerializeField] private KeyCode Shoot;
-    [SerializeField] private float Speed;
-    [SerializeField] private float JumpSpeed;
+    [Header("向左移动的按键")][SerializeField] private KeyCode Left;
+    [Header("向右移动的按键")][SerializeField] private KeyCode Right;
+    [Header("跳的按键")][SerializeField] private KeyCode Jump;
+    [Header("按下开关的键")]public KeyCode Press;
+    [Header("发射子弹的键")][SerializeField] private KeyCode Shoot;
+    [Header("移动速度的大小")][SerializeField] private float Speed;
+    [Header("跳的速度的大小")][SerializeField] private float JumpSpeed;
     //private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
     private RaycastHit2D[] Result = new RaycastHit2D[50]; //For inspecting if player can jump
-    public bool FaceLeft;
-    public float cd, proportion;
-    public int ToWinNeedButteryNum;
+    [HideInInspector] public bool FaceLeft;
+    [Header("滴水的间隔时间")]public float cd;
+    [Header("游戏胜利所需要的电池数量")]public int ToWinNeedButteryNum;
 
     void Start () {
         PlayerHP = 3;//血量
