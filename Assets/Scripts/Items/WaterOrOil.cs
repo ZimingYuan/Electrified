@@ -13,7 +13,9 @@ public class WaterOrOil : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.name == "Player" && IsWater) {
-            collision.gameObject.GetComponent<Player>().Die();
+            Player player = collision.gameObject.GetComponent<Player>();
+            int hp = player.PlayerHP;
+            for (int i = 1; i <= hp; i++) player.Injure();
         }
         if (collision.name == "OilBucket") {
             IsWater = false;

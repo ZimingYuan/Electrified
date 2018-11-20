@@ -12,6 +12,7 @@ public class Controlsetting : MonoBehaviour
     [SerializeField] private GameObject Sta;//音乐开始
     private void Start()
     {
+        Time.timeScale = 1;
         if (!GameObject.Find("MusicGround(Clone)"))
         {
             Instantiate(Music);

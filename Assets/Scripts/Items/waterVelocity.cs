@@ -8,13 +8,14 @@ public class waterVelocity : MonoBehaviour {
 	void Start () {
         gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, -200));
 	}
-	
-    void OnTriggerEnter2D(Collider2D collider) {
-        if (collider.name == "Player") collider.gameObject.GetComponent<Player>().Injure();
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name=="Player")
+        {
+            collision.gameObject.GetComponent<Player>().Injure();
+        }
         Destroy(gameObject);
     }
 
-	void Update () {
-		
-	}
 }

@@ -13,18 +13,17 @@ public class Player : MonoBehaviour {
     public KeyCode Press;
     [SerializeField] private KeyCode Shoot;
     [SerializeField] private float Speed;
-    [SerializeField] private float JumpDuration;
     [SerializeField] private float JumpSpeed;
     //private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
+    private RaycastHit2D[] Result = new RaycastHit2D[50]; //For inspecting if player can jump
     public bool FaceLeft;
     public float cd, proportion;
-    private float timecd;
+    public int ToWinNeedButteryNum;
 
     void Start () {
         PlayerHP = 3;//血量
         ElecQuan = BatteryNum = 0;//电量
-        timecd = 0;
         RecvInput = true;
         Time.timeScale = 1;
         //_Animator = GetComponent<Animator>();
@@ -57,7 +56,6 @@ public class Player : MonoBehaviour {
                 Vector2 v = _RigidBody2D.velocity;
                 v.x = -Speed;
                 _RigidBody2D.velocity = v;
-                Debug.Log(_RigidBody2D.velocity.x);
                 //_Animator.SetBool("Normal", false);
                 //_Animator.SetBool("WalktoLeft", true);
                 FaceLeft = true;
@@ -70,12 +68,16 @@ public class Player : MonoBehaviour {
                 //_Animator.SetBool("Normal", true);
             }
             //Jump
-            if (Input.GetKeyDown(Jump) && Time.time>timecd) {
-                Vector2 v = _RigidBody2D.velocity;
-                if (Physics2D.gravity.y <= 0) v.y = JumpSpeed;
-                else v.y = -JumpSpeed;
-                _RigidBody2D.velocity = v;
-                timecd = Time.time + JumpDuration;
+            if (Input.GetKeyDown(Jump)) {
+                Collider2D collider = GetComponent<Collider2D>();
+                Vector2 Direction = Vector2.zero;
+                if (Physics2D.gravity.y <= 0) Direction.y = -JumpSpeed;
+                else Direction.y = JumpSpeed;
+                if (collider.Raycast(Direction, Result) > 0 && Result[0].distance < 0.3f) {
+                    Vector2 v = _RigidBody2D.velocity;
+                    v.y = -Direction.y;
+                    _RigidBody2D.velocity = v;
+                }
             }
             //Shoot
             if (Input.GetKeyDown(Shoot)) {
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour {
     //受伤
     public void Injure() {
         PlayerHP--;
-        //_StageObject.HPPanel.Injure();
+        _StageObject.HPPanel.Injure(PlayerHP);
         if (PlayerHP == 0) Die();
     }
 
@@ -98,15 +100,22 @@ public class Player : MonoBehaviour {
         ElecQuan = 3;
     }
 
+    public void win() {
+        _StageObject.Win.SetActive(true);
+        Time.timeScale = 0;
+    }
+
     public void Die() {
         RecvInput = false;
         //_Animator.SetBool("Die", true);
         //Add event "DieOver" in Animation
+        DieOver();
     }
 
     public void DieOver() {
+        Destroy(gameObject);
         Time.timeScale = 0;
-  //      _StageObject.GameOverPanel.SetActive(true);
+        _StageObject.Lose.SetActive(true);
     }
 
 }

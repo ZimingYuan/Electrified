@@ -19,7 +19,6 @@ public class Wrench : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.name == "Player") Touch = true;
-        Debug.Log("true");
     }
 
     void OnTriggerExit2D(Collider2D collision) {
