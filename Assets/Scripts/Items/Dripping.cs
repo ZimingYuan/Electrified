@@ -9,7 +9,8 @@ public class Dripping : MonoBehaviour {
     private float timeFlag;
     public Player Player;
     [SerializeField] private GameObject drip;
-    [SerializeField] private GameObject posi;//产生水滴的位置.
+    [SerializeField] private GameObject water1;
+    [SerializeField] private GameObject water2;
     private void Start()
     {
         timeFlag = 0;
@@ -19,8 +20,13 @@ public class Dripping : MonoBehaviour {
     void Update () {
 		if(Time.time>timeFlag)
         {
-            Instantiate(drip, posi.transform.position, Quaternion.identity);
+            Instantiate(drip, water1.transform.position, Quaternion.identity);
+            Invoke("Produce2", 0.5f);
             timeFlag = Time.time + cd;
         }
 	}
+    private void Produce2()
+    {
+        Instantiate(drip, water2.transform.position, Quaternion.identity);
+    }
 }

@@ -35,6 +35,7 @@ public class Player : MonoBehaviour {
 	//开关、充电、激光发射器各自分开写
 	void Update () {
 		if (RecvInput) {
+            _StageObject.Dark.material.SetVector("_Center", new Vector4(transform.position.x, transform.position.y, transform.position.z));
             //Right
             if (Input.GetKey(Right)) {
                 Vector2 v = _RigidBody2D.velocity;

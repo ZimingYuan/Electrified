@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Controlsetting : MonoBehaviour {
+public class Controlsetting : MonoBehaviour
+{
 
     [SerializeField] private GameObject Music;
-    [SerializeField] private GameObject Stop;
+    private GameObject go;//获取当前音乐
+    [SerializeField] private GameObject Stop;//音乐停止
+    [SerializeField] private GameObject Sta;//音乐开始
     private void Start()
     {
-        if (GameObject.Find("GameManager"))
+        if (!GameObject.Find("MusicGround(Clone)"))
         {
-            DontDestroyOnLoad(Music);
+            Instantiate(Music);
+            go = GameObject.Find("MusicGround(Clone)");
+            DontDestroyOnLoad(go);
         }
     }
     public void goNextScene()
@@ -21,11 +26,13 @@ public class Controlsetting : MonoBehaviour {
     public void StopMusic()
     {
         Stop.SetActive(true);
-        Music.GetComponent<AudioSource>().Pause();
+        Sta.SetActive(false);
+        go.GetComponent<AudioSource>().Pause();
     }
     public void ContinueMusic()
     {
         Stop.SetActive(false);
-        Music.GetComponent<AudioSource>().Play();
+        Sta.SetActive(true);
+        go.GetComponent<AudioSource>().Play();
     }
 }
