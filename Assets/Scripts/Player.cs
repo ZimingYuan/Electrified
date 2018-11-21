@@ -73,7 +73,7 @@ public class Player : MonoBehaviour {
                 Vector2 Direction = Vector2.zero;
                 if (Physics2D.gravity.y <= 0) Direction.y = -JumpSpeed;
                 else Direction.y = JumpSpeed;
-                if (collider.Raycast(Direction, Result) > 0 && Result[0].distance < 0.3f) {
+                if (collider.Raycast(Direction, Result) > 0 && Result[0].distance < 0.5f) {
                     Vector2 v = _RigidBody2D.velocity;
                     v.y = -Direction.y;
                     _RigidBody2D.velocity = v;
