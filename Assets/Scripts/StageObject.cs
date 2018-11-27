@@ -40,7 +40,7 @@ public class StageObject : MonoBehaviour {
 
     public void Gonext()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Choose");
     }
 
 }

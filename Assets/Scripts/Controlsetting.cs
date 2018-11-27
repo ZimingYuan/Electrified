@@ -22,7 +22,7 @@ public class Controlsetting : MonoBehaviour
     }
     public void goNextScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Choose");
     }
     public void StopMusic()
     {
