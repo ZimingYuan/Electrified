@@ -5,18 +5,20 @@ using UnityEngine;
 public class LaserLauncher : MonoBehaviour {
 
     // Editor: Yzm
-    StageObject _StageObject;
-    private bool TouchLaser;
+    [SerializeField] private StageObject _StageObject;
+    private bool TouchLaser, IsOn;
     private Player player;
     [SerializeField] private Vector2 Direction;
+    [SerializeField] private float LaunchDuration;
     private RaycastHit2D[] Result = new RaycastHit2D[50];
     private List<Vector3> Points = new List<Vector3>();
-    private GameObject Laser;
+    private LineRenderer Laser;
+    private float NowTime;
 
     void Start() {
         player = _StageObject.GetPlayer().GetComponent<Player>();
         Direction.Normalize();
-        TouchLaser = false;
+        TouchLaser = false; IsOn = true;
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -28,36 +30,36 @@ public class LaserLauncher : MonoBehaviour {
     }
 
     void Update() {
-        if (player.RecvInput && Input.GetKeyDown(player.Press)) {
-            LaserLaunch();
-        }
+        if (TouchLaser && player.RecvInput && Input.GetKeyDown(player.Press)) { IsOn = !IsOn; }
+        if (NowTime > LaunchDuration) { NowTime = 0; if (IsOn) LaserLaunch(); }
+        else NowTime += Time.deltaTime;
     }
 
     public void LaserLaunch() {
         _StageObject.OpticalSw.GetComponent<OpticalSw>().Off();
-        if (Laser != null) Destroy(Laser);
-        //That means the number of mirrors should less than 50
+        if (Laser != null) Destroy(Laser.gameObject);
         Collider2D tmpc = GetComponent<Collider2D>();
         Vector2 tmpd = Direction;
         Points.Clear(); Points.Add(transform.position);
         for (; ; ) {
             if (tmpc.Raycast(tmpd, Result) > 0) {
-                Points.Add(Result[0].collider.gameObject.transform.position);
-                if (Result[0].collider.name == "Map") break;
-                //Name the Tilemap Map
-                if (Result[0].collider.name == "OpticalSw") {
+                Points.Add(Result[0].point);
+                if (Result[0].collider.name.StartsWith("Mirror")) {
+                    tmpc = Result[0].collider;
+                    Vector2 nor = Result[0].collider.gameObject.GetComponent<Mirror>().Normal;
+                    tmpd = tmpd - 2 * Vector2.Dot(tmpd, nor) * nor;
+                }
+                else if (Result[0].collider.name == "OpticalSw") {
                     _StageObject.OpticalSw.GetComponent<OpticalSw>().On();
                     break;
                 }
-                tmpc = Result[0].collider;
-                Vector2 nor = Result[0].collider.gameObject.GetComponent<Mirror>().Normal;
-                tmpd = tmpd - 2 * Vector2.Dot(tmpd, nor) * nor;
-                //Get the output direction through the input direction and the normal direction
+                else break;
             }
             else break;
         }
-        Laser = Instantiate(_StageObject.LaserPrefab);
-        Laser.GetComponent<LineRenderer>().SetPositions(Points.ToArray());
+        Laser = Instantiate(_StageObject.LaserPrefab).GetComponent<LineRenderer>();
+        Laser.positionCount = Points.Count;
+        Laser.SetPositions(Points.ToArray());
     }
 
 }

@@ -14,7 +14,7 @@ public class Mirror : MonoBehaviour {
 
     void Start() {
         Normal.Normalize();
-        TouchMirror = true;
+        TouchMirror = false;
         OnPress = false;
         player = _StageObject.GetPlayer().GetComponent<Player>();
     }
@@ -28,16 +28,14 @@ public class Mirror : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(player.Press)) OnPress = true;
-        if (Input.GetKeyUp(player.Press)) {
-            OnPress = false;
-            _StageObject.LaserLauncher.GetComponent<LaserLauncher>().LaserLaunch();
-        }
-        if (OnPress) {
-            transform.Rotate(Vector3.forward, RotateSpeed * Time.deltaTime);
-            float Angle = Mathf.Deg2Rad * (Vector2.Angle(Vector2.right, Normal) + RotateSpeed * Time.deltaTime);
-            Normal = new Vector2(Mathf.Cos(Angle), Mathf.Sin(Angle));
+        if (TouchMirror) {
+            if (Input.GetKeyDown(player.Press)) OnPress = true;
+            if (Input.GetKeyUp(player.Press)) OnPress = false;
+            if (OnPress) {
+                transform.Rotate(Vector3.forward, RotateSpeed * Time.deltaTime);
+                float Angle = Mathf.Atan2(Normal.y, Normal.x) + Mathf.Deg2Rad * (RotateSpeed * Time.deltaTime);
+                Normal = new Vector2(Mathf.Cos(Angle), Mathf.Sin(Angle));
+            }
         }
     }
-
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class Electromagnet : MonoBehaviour {
 
     // Editor: Yzm
-    private bool IsOn, Touch;
+    private bool Touch;
     [SerializeField] private StageObject _StageObject;
     private Player player;
 
     void Start() {
-        IsOn = false; Touch = false;
+        Touch = false;
         player = _StageObject.GetPlayer().GetComponent<Player>();
     }
 
@@ -24,11 +24,11 @@ public class Electromagnet : MonoBehaviour {
 
     void Update() {
         if (Touch && player.RecvInput && Input.GetKeyDown(player.Press)) {
-            if (IsOn) {
-                Physics2D.gravity = new Vector2(0, -9.8f); IsOn = false;
+            if (Physics2D.gravity.y > 0) {
+                Physics2D.gravity = new Vector2(0, -9.8f);
             }
             else {
-                Physics2D.gravity = new Vector2(0, 9.8f); IsOn = true;
+                Physics2D.gravity = new Vector2(0, 9.8f);
             }
         }
     }
