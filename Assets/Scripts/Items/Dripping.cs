@@ -7,14 +7,14 @@ public class Dripping : MonoBehaviour {
     // Editor: Syx
     private float cd;
     private float timeFlag;
-    public Player Player;
+    [SerializeField] private StageObject _StageObject;
     [SerializeField] private GameObject drip;
     [SerializeField] private GameObject water1;
     [SerializeField] private GameObject water2;
     private void Start()
     {
         timeFlag = 0;
-        cd = Player.cd;
+        cd = _StageObject.GetPlayer().GetComponent<Player>().cd;
     }
 
     void Update () {

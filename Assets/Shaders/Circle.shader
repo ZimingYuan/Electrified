@@ -28,7 +28,7 @@
 		};
 
 		void surf (Input IN, inout SurfaceOutput o) {
-            o.Albedo = _Color * 2.4;
+            o.Albedo = _Color * 4.8;
             fixed3 Center = _Center.xyz; Center.y += 0.2;
             if (distance(Center, IN.worldPos) < _Radiu)
 			    o.Alpha = 0.0;
