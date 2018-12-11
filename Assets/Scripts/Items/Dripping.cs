@@ -14,7 +14,7 @@ public class Dripping : MonoBehaviour {
     private void Start()
     {
         timeFlag = 0;
-        cd = _StageObject.GetPlayer().GetComponent<Player>().cd;
+        cd = _StageObject.cd;
     }
 
     void Update () {

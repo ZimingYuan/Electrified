@@ -12,13 +12,15 @@ public class Wrench : MonoBehaviour {
     [SerializeField] private string color;
     // Use this for initialization
     void Start () {
-        player = gameManagee.GetPlayer().GetComponent<Player>();
         Touch = IsOpen = false;
         door = gameManagee.GetComponent<StageObject>().GetDoorByColor(color).GetComponent<Door>();
 	}
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.name == "Player") Touch = true;
+        if (collision.name == "Player") {
+            Touch = true;
+            player = gameManagee.GetPlayer().GetComponent<Player>();
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision) {

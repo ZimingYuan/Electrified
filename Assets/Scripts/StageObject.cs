@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class StageObject : MonoBehaviour {
 
     public List <GameObject> Doors = new List<GameObject>();
-    public GameObject Player;
+    public GameObject ActivePlayer;
     public GameObject PausePanel;
     public GameObject OpticalSw;
     public GameObject LaserLauncher;
@@ -16,6 +16,15 @@ public class StageObject : MonoBehaviour {
     public GameObject Lose;
     public GameObject Win;
     public HPPanel HPPanel;
+    [HideInInspector]public int PlayerHP, ElecQuan, BatteryNum;
+    [Header("滴水的间隔时间")]public float cd;
+    [Header("游戏胜利所需要的电池数量")]public int ToWinNeedButteryNum;
+
+    void Start() {
+        PlayerHP = 3;//血量
+        ElecQuan = BatteryNum = 0;//电量
+        Physics2D.gravity = new Vector2(0, -9.8f);
+    }
 
     public GameObject GetDoorByColor(string color) {
         foreach (GameObject i in Doors) {
@@ -25,7 +34,7 @@ public class StageObject : MonoBehaviour {
     }
 
     public GameObject GetPlayer() {
-        return Player;
+        return ActivePlayer;
     }
 
     public void Reload()

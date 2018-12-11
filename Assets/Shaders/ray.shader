@@ -28,8 +28,8 @@
 
 		void surf (Input IN, inout SurfaceOutput o) {
             fixed4 c = _Color * 4.8;
-            float y = abs(IN.uv_MainTex.y - 0.5);
-            c.a = min(1, c.a / (1 / (0.5 - y) - 2.0));
+            float y = abs(IN.uv_MainTex.y - 0.5) * 100;
+            c.a = pow(min(1, c.a / y), 2.2);
 			o.Albedo = c.rgb;
 			o.Alpha = c.a;
 		}

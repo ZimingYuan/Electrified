@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    [HideInInspector]public int PlayerHP, ElecQuan, BatteryNum;
-    [HideInInspector] public bool RecvInput;
+    public bool RecvInput;
     [SerializeField] private StageObject _StageObject;
+    public bool Bright;
     [Header("向左移动的按键")][SerializeField] private KeyCode Left;
     [Header("向右移动的按键")][SerializeField] private KeyCode Right;
     [Header("跳的按键")][SerializeField] private KeyCode Jump;
@@ -18,13 +18,8 @@ public class Player : MonoBehaviour {
     private Rigidbody2D _RigidBody2D;
     private RaycastHit2D[] Result = new RaycastHit2D[50]; //For inspecting if player can jump
     [HideInInspector] public bool FaceLeft;
-    [Header("滴水的间隔时间")]public float cd;
-    [Header("游戏胜利所需要的电池数量")]public int ToWinNeedButteryNum;
 
     void Start () {
-        PlayerHP = 3;//血量
-        ElecQuan = BatteryNum = 0;//电量
-        RecvInput = true;
         Time.timeScale = 1;
         //_Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
@@ -33,9 +28,9 @@ public class Player : MonoBehaviour {
 	}
 	//开关、充电、激光发射器各自分开写
 	void Update () {
+        if (_StageObject.Dark != null && Bright)
+            _StageObject.Dark.material.SetVector("_Center", new Vector4(transform.position.x, transform.position.y, transform.position.z));
 		if (RecvInput) {
-            if (_StageObject.Dark != null)
-                _StageObject.Dark.material.SetVector("_Center", new Vector4(transform.position.x, transform.position.y, transform.position.z));
             //Right
             if (Input.GetKey(Right)) {
                 Vector2 v = _RigidBody2D.velocity;
@@ -90,15 +85,15 @@ public class Player : MonoBehaviour {
 
     //受伤
     public void Injure() {
-        PlayerHP--;
-        _StageObject.HPPanel.Injure(PlayerHP);
-        if (PlayerHP == 0) Die();
+        _StageObject.PlayerHP--;
+        _StageObject.HPPanel.Injure(_StageObject.PlayerHP);
+        if (_StageObject.PlayerHP == 0) Die();
     }
 
     public void ChargeOver() {
         RecvInput = true;
         //gameObject.GetComponent<Animator>().SetBool("Charge", false);
-        ElecQuan = 3;
+        _StageObject.ElecQuan = 3;
     }
 
     public void win() {

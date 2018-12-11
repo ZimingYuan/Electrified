@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4157621038263822}
   - component: {fileID: 212285366741024460}
-  - component: {fileID: 114405805173214324}
   - component: {fileID: 61065217313009938}
   m_Layer: 0
   m_Name: Horizon
@@ -58,7 +57,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0.5}
-    oldSize: {x: 2, y: 0.18}
+    oldSize: {x: 2, y: 0.38}
     newSize: {x: 0.4, y: 0.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -67,18 +66,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.18}
   m_EdgeRadius: 0
---- !u!114 &114405805173214324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1216622370359064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b6ded4429aae924ca5ffd0c43e68034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsOn: 0
 --- !u!212 &212285366741024460
 SpriteRenderer:
   m_ObjectHideFlags: 1

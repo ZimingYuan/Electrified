@@ -9,65 +9,66 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1661621347934768}
+  m_RootGameObject: {fileID: 1146575224492296}
   m_IsPrefabAsset: 1
---- !u!1 &1661621347934768
+--- !u!1 &1146575224492296
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4956655231669978}
-  - component: {fileID: 212354728348916790}
-  - component: {fileID: 50222121787579454}
-  - component: {fileID: 61612804405578656}
+  - component: {fileID: 4153965356466702}
+  - component: {fileID: 212081094488701396}
+  - component: {fileID: 61738950453529040}
+  - component: {fileID: 50373468485384206}
+  - component: {fileID: 114650128297468200}
   m_Layer: 0
-  m_Name: WoodenBox
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4956655231669978
+--- !u!4 &4153965356466702
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1661621347934768}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.898, y: 8.19, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_GameObject: {fileID: 1146575224492296}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.76, y: 2.84, z: -1}
+  m_LocalScale: {x: 0.7, y: 0.65, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50222121787579454
+--- !u!50 &50373468485384206
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1661621347934768}
+  m_GameObject: {fileID: 1146575224492296}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 8
-  m_LinearDrag: 8
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61612804405578656
+--- !u!61 &61738950453529040
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1661621347934768}
+  m_GameObject: {fileID: 1146575224492296}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 665619f14dc4fb64998a0e88a5be8480, type: 2}
@@ -78,21 +79,48 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.7866667, y: 0.7633333}
-    newSize: {x: 0.76, y: 0.71}
+    oldSize: {x: 0.5, y: 1}
+    newSize: {x: 0.5, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.76, y: 0.71}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
---- !u!212 &212354728348916790
+--- !u!114 &114650128297468200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146575224492296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb5b41676f69974eb9903af7a32ca59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerHP: 3
+  ElecQuan: 0
+  BatteryNum: 0
+  RecvInput: 1
+  _StageObject: {fileID: 0}
+  Bright: 0
+  Left: 276
+  Right: 275
+  Jump: 32
+  Press: 120
+  Shoot: 99
+  Speed: 2
+  JumpSpeed: 5.7
+  FaceLeft: 0
+  cd: 1.4
+  ToWinNeedButteryNum: 3
+--- !u!212 &212081094488701396
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1661621347934768}
+  m_GameObject: {fileID: 1146575224492296}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -122,12 +150,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 58acf7326b4c3054086cbf723f92a322, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc2c2e0f9b989664fad101e2f06f7aa1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.76, y: 0.71}
+  m_Size: {x: 0.5, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
