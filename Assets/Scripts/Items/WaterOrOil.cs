@@ -8,8 +8,7 @@ public class WaterOrOil : MonoBehaviour {
 
     void Start() {
         IsWater = true;
-        GetComponent<SpriteRenderer>().material.color = new Color(0, 0, 1);
-        GetComponent<SpriteRenderer>().material.SetFloat("_Speed", 5);
+        GetComponent<SpriteRenderer>().material.SetFloat("_IsWater", 1);
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -20,8 +19,7 @@ public class WaterOrOil : MonoBehaviour {
         }
         if (collision.name == "OilBucket") {
             IsWater = false;
-            GetComponent<SpriteRenderer>().material.SetColor("_Color", new Color(1, 1, 0));
-            GetComponent<SpriteRenderer>().material.SetFloat("_Speed", 2.5f);
+            GetComponent<SpriteRenderer>().material.SetFloat("_IsWater", 0);
             Destroy(collision.gameObject);
         }
     }

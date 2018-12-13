@@ -26,9 +26,15 @@ public class Electromagnet : MonoBehaviour {
         if (Touch && player.RecvInput && Input.GetKeyDown(player.Press)) {
             if (Physics2D.gravity.y > 0) {
                 Physics2D.gravity = new Vector2(0, -9.8f);
+                Vector3 s = player.transform.localScale;
+                s.y = -s.y;
+                player.transform.localScale = s;
             }
             else {
                 Physics2D.gravity = new Vector2(0, 9.8f);
+                Vector3 s = player.transform.localScale;
+                s.y = -s.y;
+                player.transform.localScale = s;
             }
         }
     }

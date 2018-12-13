@@ -14,14 +14,15 @@ public class Player : MonoBehaviour {
     [Header("发射子弹的键")][SerializeField] private KeyCode Shoot;
     [Header("移动速度的大小")][SerializeField] private float Speed;
     [Header("跳的速度的大小")][SerializeField] private float JumpSpeed;
-    //private Animator _Animator;
+    private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
     private RaycastHit2D[] Result = new RaycastHit2D[50]; //For inspecting if player can jump
     [HideInInspector] public bool FaceLeft;
+    [SerializeField] private List<string> Param;
 
     void Start () {
         Time.timeScale = 1;
-        //_Animator = GetComponent<Animator>();
+        _Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
         FaceLeft = true;
         gameObject.name = "Player";
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour {
                 v.x = Speed;
                 _RigidBody2D.velocity = v;
                 //_Animator.SetBool("Normal", false);
-                //_Animator.SetBool("WalktoRight", true);
+                _Animator.SetBool("RightStatic", true);
                 FaceLeft = false;
             }
             if (Input.GetKeyUp(Right)) {
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour {
                 v.x = -Speed;
                 _RigidBody2D.velocity = v;
                 //_Animator.SetBool("Normal", false);
-                //_Animator.SetBool("WalktoLeft", true);
+                _Animator.SetBool("LeftStatic", true);
                 FaceLeft = true;
             }
             if (Input.GetKeyUp(Left)) {
@@ -112,6 +113,11 @@ public class Player : MonoBehaviour {
         Destroy(gameObject);
         Time.timeScale = 0;
         _StageObject.Lose.SetActive(true);
+    }
+
+    public void CloseTransition() {
+        foreach (string i in Param)
+            _Animator.SetBool(i, false);
     }
 
 }
