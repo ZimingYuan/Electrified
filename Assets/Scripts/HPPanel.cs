@@ -6,7 +6,7 @@ public class HPPanel : MonoBehaviour {
 	
 	public void Injure(int num) {
         SpriteRenderer Heart = transform.Find("Heart" + num).gameObject.GetComponent<SpriteRenderer>();
-        Heart.sprite = Resources.Load<Sprite>("NoHeart");
+        Heart.color = new Color(0, 0, 0, 0);
     }
 
 }
