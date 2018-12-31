@@ -16,12 +16,10 @@ public class Player : MonoBehaviour {
     [Header("跳的速度的大小")][SerializeField] private float JumpSpeed;
     private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
-    private RaycastHit2D[] Result = new RaycastHit2D[50]; //For inspecting if player can jump
     [HideInInspector] public bool FaceLeft;
     [SerializeField] private List<string> Param;
 
     void Start () {
-        Time.timeScale = 1;
         _Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
         FaceLeft = true;
@@ -66,11 +64,13 @@ public class Player : MonoBehaviour {
             }
             //Jump
             if (Input.GetKeyDown(Jump)) {
-                Collider2D collider = GetComponent<Collider2D>();
+                Transform[] children = GetComponentsInChildren<Transform>();
                 Vector2 Direction = Vector2.zero;
                 if (Physics2D.gravity.y <= 0) Direction.y = -JumpSpeed;
                 else Direction.y = JumpSpeed;
-                if (collider.Raycast(Direction, Result) > 0 && Result[0].distance < 0.5f) {
+                bool c1 = Physics2D.Raycast(children[1].position, Direction, 0.1f);
+                bool c2 = Physics2D.Raycast(children[2].position, Direction, 0.1f);
+                if  (c1 || c2) {
                     Vector2 v = _RigidBody2D.velocity;
                     v.y = -Direction.y;
                     _RigidBody2D.velocity = v;

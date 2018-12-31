@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883396cec8c03964080b68565f91fc94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeFlag: 0
+  cd: 1
   _StageObject: {fileID: 0}
   drip: {fileID: 1460330800426700, guid: 437599c0fac3bb94093a249b5c3a88b2, type: 2}
   water: {fileID: 1445879528395270}

@@ -11,7 +11,7 @@ public class ChangeCharacter : MonoBehaviour {
     public bool itrue ;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.X)&&itrue==true)
+        if (Input.GetKeyDown(_StageObject.GetPlayer().GetComponent<Player>().Press)&&itrue==true)
         {
             play = collision.gameObject.GetComponent<Player>();
             play.RecvInput = false;

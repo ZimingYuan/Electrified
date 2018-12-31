@@ -5,22 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class StageObject : MonoBehaviour {
 
-    public List <GameObject> Doors = new List<GameObject>();
-    public GameObject ActivePlayer;
-    public GameObject PausePanel;
-    public GameObject OpticalSw;
-    public GameObject LaserLauncher;
-    public GameObject LaserPrefab;
-    public GameObject BulletPrefab;
-    public SpriteRenderer Dark;
-    public GameObject Lose;
-    public GameObject Win;
-    public HPPanel HPPanel;
+    [Header("游戏中的门")] public List <GameObject> Doors = new List<GameObject>();
+    [Header("玩家对象")]public GameObject ActivePlayer;
+    [Header("暂停面板")]public GameObject PausePanel;
+    [Header("接受激光器")]public GameObject OpticalSw;
+    [Header("激光发射器")]public GameObject LaserLauncher;
+    [Header("激光预制体")]public GameObject LaserPrefab;
+    [Header("子弹预制体")]public GameObject BulletPrefab;
+    [Header("黑暗区域")]public SpriteRenderer Dark;
+    [Header("失败面板")]public GameObject Lose;
+    [Header("胜利面板")]public GameObject Win;
+    [Header("血量显示")]public HPPanel HPPanel;
     [HideInInspector]public int PlayerHP, ElecQuan, BatteryNum;
-    [Header("滴水的间隔时间")]public float cd;
     [Header("游戏胜利所需要的电池数量")]public int ToWinNeedButteryNum;
+    [Header("铁制物品")] public List <GameObject> MentalObject = new List<GameObject>();
 
     void Start() {
+        Time.timeScale = 1;
         PlayerHP = 3;//血量
         ElecQuan = BatteryNum = 0;//电量
         Physics2D.gravity = new Vector2(0, -9.8f);
@@ -50,6 +51,16 @@ public class StageObject : MonoBehaviour {
     public void Gonext()
     {
         SceneManager.LoadScene("Choose");
+    }
+
+    public void PauseGame() {
+        Time.timeScale = 0;
+        PausePanel.SetActive(true);
+    }
+
+    public void ResumeGame() {
+        Time.timeScale = 1;
+        PausePanel.SetActive(false);
     }
 
 }
