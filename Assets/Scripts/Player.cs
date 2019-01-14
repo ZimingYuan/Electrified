@@ -16,13 +16,14 @@ public class Player : MonoBehaviour {
     [Header("跳的速度的大小")][SerializeField] private float JumpSpeed;
     private Animator _Animator;
     private Rigidbody2D _RigidBody2D;
+    private bool Jumpable;
     [HideInInspector] public bool FaceLeft;
     [SerializeField] private List<string> Param;
 
     void Start () {
         _Animator = GetComponent<Animator>();
         _RigidBody2D = GetComponent<Rigidbody2D>();
-        FaceLeft = true;
+        FaceLeft = Jumpable = true;
         gameObject.name = "Player";
 	}
 	//开关、充电、激光发射器各自分开写
@@ -63,18 +64,14 @@ public class Player : MonoBehaviour {
                 //_Animator.SetBool("Normal", true);
             }
             //Jump
-            if (Input.GetKeyDown(Jump)) {
-                Transform[] children = GetComponentsInChildren<Transform>();
-                Vector2 Direction = Vector2.zero;
-                if (Physics2D.gravity.y <= 0) Direction.y = -JumpSpeed;
-                else Direction.y = JumpSpeed;
-                bool c1 = Physics2D.Raycast(children[1].position, Direction, 0.1f);
-                bool c2 = Physics2D.Raycast(children[2].position, Direction, 0.1f);
-                if  (c1 || c2) {
-                    Vector2 v = _RigidBody2D.velocity;
-                    v.y = -Direction.y;
-                    _RigidBody2D.velocity = v;
-                }
+            if (Input.GetKeyDown(Jump) && Jumpable) {
+                Jumpable = false;
+                float dy;
+                if (Physics2D.gravity.y < 0) dy = JumpSpeed;
+                else dy = -JumpSpeed;
+                Vector2 v = _RigidBody2D.velocity;
+                v.y = dy;
+                _RigidBody2D.velocity = v;
             }
             //Shoot
             if (Input.GetKeyDown(Shoot)) {
@@ -83,6 +80,13 @@ public class Player : MonoBehaviour {
             }
         }
 	}
+
+    void OnCollisionEnter2D(Collision2D c) {
+        bool NowGravityPositive = Physics2D.gravity.y > 0;
+        ContactPoint2D cp = c.GetContact(0);
+        if (!NowGravityPositive && cp.normal.y > 0) Jumpable = true;
+        if (NowGravityPositive && cp.normal.y < 0) Jumpable = true;
+    }
 
     //受伤
     public void Injure() {
