@@ -65,7 +65,6 @@ public class Player : MonoBehaviour {
             }
             //Jump
             if (Input.GetKeyDown(Jump) && Jumpable) {
-                Jumpable = false;
                 float dy;
                 if (Physics2D.gravity.y < 0) dy = JumpSpeed;
                 else dy = -JumpSpeed;
@@ -81,7 +80,11 @@ public class Player : MonoBehaviour {
         }
 	}
 
-    void OnCollisionEnter2D(Collision2D c) {
+    private void FixedUpdate() {
+        Jumpable = false;
+    }
+
+    private void OnCollisionStay2D(Collision2D c) {
         bool NowGravityPositive = Physics2D.gravity.y > 0;
         ContactPoint2D cp = c.GetContact(0);
         if (!NowGravityPositive && cp.normal.y > 0) Jumpable = true;
