@@ -16,11 +16,13 @@ public class StageObject : MonoBehaviour {
     [Header("失败面板")]public GameObject Lose;
     [Header("胜利面板")]public GameObject Win;
     [Header("血量显示")]public HPPanel HPPanel;
+    [Header("怪物")] public GameObject _Monster;
     [HideInInspector]public int PlayerHP, ElecQuan, BatteryNum;
     [Header("游戏胜利所需要的电池数量")]public int ToWinNeedButteryNum;
     [Header("铁制物品")] public List <GameObject> MentalObject = new List<GameObject>();
 
-    void Start() {
+    void Start()
+    {
         Time.timeScale = 1;
         PlayerHP = 3;//血量
         ElecQuan = BatteryNum = 0;//电量

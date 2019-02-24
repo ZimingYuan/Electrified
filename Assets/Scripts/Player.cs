@@ -74,8 +74,16 @@ public class Player : MonoBehaviour {
             }
             //Shoot
             if (Input.GetKeyDown(Shoot)) {
-                GameObject tmp = Instantiate(_StageObject.BulletPrefab, gameObject.transform.position, Quaternion.identity);
-                tmp.GetComponent<Bullet>().sign = FaceLeft ? -1 : 1;
+                GameObject tmp = Instantiate(_StageObject.BulletPrefab, gameObject.transform.position , Quaternion.identity);
+                if (gameObject.GetComponent<SpriteRenderer>().sprite.name == "CharLeft")
+                {
+                    Vector3 vec = tmp.transform.localScale;
+                    vec.x *= -1;
+                    tmp.transform.localScale = vec;
+                    tmp.GetComponent<Bullet>().sign = -1;
+                   
+                }
+               
             }
         }
 	}

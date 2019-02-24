@@ -6,11 +6,12 @@ public class PlatformMonster : MonoBehaviour {
 
     
     private float left, right;
-    private int state;//怪物的状态。
+    [HideInInspector] public int state;//怪物的状态。
     private RaycastHit2D check;
+    private int onMonster = 0;
     private Vector2 velo = new Vector2(1, 0);
     [SerializeField] private GameObject check1;
-    private float timeFlag;
+    [HideInInspector] public float timeFlag;
     // Use this for initialization
 	void Start () { 
         state = 0;
@@ -18,29 +19,33 @@ public class PlatformMonster : MonoBehaviour {
 
     private void Update()
     {
-        if(state == 0 )
+        if (state != 2) onMonster = 0;
+        if (state == 0 )
         {
-            GetComponent<Rigidbody2D>().velocity = velo * Time.deltaTime * 50;
+            GetComponent<Rigidbody2D>().velocity = velo * Time.deltaTime * 400;
             check = Physics2D.Raycast(check1.transform.position, velo);
-            if(check.distance <0.1f )
+            if(check.distance <0.1f&& check.transform.tag != "Player" )
             {
                 state = 1;velo *= -1;
-                Vector3 scale = transform.localScale * -1;
+                Vector3 scale = transform.localScale ;
+                scale.x *= -1;
                 transform.localScale = scale;
             }
         }
         else if(state == 1 )
         {
-            GetComponent<Rigidbody2D>().velocity = velo * Time.deltaTime * 50;
+            GetComponent<Rigidbody2D>().velocity = velo * Time.deltaTime * 400;
             check = Physics2D.Raycast(check1.transform.position, velo);
-            if (check.distance < 0.1f)
+            
+            if (check.distance < 0.1f && check.transform.tag!="Player")
             {
                 state = 0; velo *= -1;
-                Vector3 scale = transform.localScale * -1;
+                Vector3 scale = transform.localScale;
+                scale.x *= -1;
                 transform.localScale = scale;
             }
         }
-        else if(state == 2 )
+        else if(state == 2 &&onMonster==0 )
         {
             Debug.Log("缩成乌龟");
             if(Time.time>timeFlag)
@@ -49,19 +54,25 @@ public class PlatformMonster : MonoBehaviour {
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("碰到了");
-        if(state!=2)
+        if (collision.gameObject.tag == "Player")
+        {
+            onMonster = 1;
+            
+        }
+        else onMonster = 0;
+        if ((collision.gameObject.tag =="Player" || collision.gameObject.tag=="Bullet")&&state!=2 )
         {
             collision.gameObject.GetComponent<Player>().Injure();
+            state = 2;
+            timeFlag = Time.time + 5.5f;
         }
-        state = 2;
-        timeFlag = Time.time + 5.5f;
     }
     public void playback()
     {
         Debug.Log("恢复");
+        this.GetComponent<Rigidbody2D>().gravityScale = 50;
         state = 0;
     }
 }

@@ -11,4 +11,8 @@ public class StageChoose : MonoBehaviour {
     public void Level1_3() {
         SceneManager.LoadScene("Level1-3");
     }
+    public void Level1_4()
+    {
+        SceneManager.LoadScene(5);
+    }
 }
